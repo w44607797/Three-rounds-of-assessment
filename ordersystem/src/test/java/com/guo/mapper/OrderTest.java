@@ -84,6 +84,11 @@ public class OrderTest {
     public void add(){
         System.out.println("hellow");
     }
+    @Test
+    public void add2() {
+        System.out.println("nmb");
+    }
+
 }
 
 //    @After
