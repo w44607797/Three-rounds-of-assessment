@@ -80,6 +80,10 @@ public class OrderTest {
           orderMapper.updateOrder(new MyOrder(2,2,
                   MyDateUtils.getDate(date.getTime())));
     }
+    @Test
+    public void add(){
+        System.out.println("hellow");
+    }
 }
 
 //    @After
