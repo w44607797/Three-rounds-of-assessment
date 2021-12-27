@@ -88,6 +88,10 @@ public class OrderTest {
     public void add2() {
         System.out.println("nmb");
     }
+    @Test
+    public void add3(){
+        System.out.println(3);
+    }
 
 }
 
