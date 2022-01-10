@@ -1,16 +1,16 @@
 package com.guo.mapper;
 
-import com.guo.pojos.MyOrder;
+import com.guo.pojos.myOrder;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface MyOrderMapper {
-    List<MyOrder> getOrderList();
-    MyOrder getOrderById(int id);
-    int addOrder(MyOrder myOrder);
-    void updateOrder(MyOrder myOrder);
+    List<myOrder> getOrderList();
+    myOrder getOrderById(int id);
+    int addOrder(myOrder myOrder);
+    void updateOrder(myOrder myOrder);
     void deleteOrderById(int orderId);
-    int addOrderByMap(Map<String,Object> map);
-    List<MyOrder> selectLike(String id);
+    List<myOrder> selectLike(String id);
+    List<myOrder> selectLimit(HashMap<String,Integer> map);
 }

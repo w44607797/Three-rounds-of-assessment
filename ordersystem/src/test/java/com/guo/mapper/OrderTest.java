@@ -1,65 +1,75 @@
 package com.guo.mapper;
-import com.guo.pojos.Commodity;
-import com.guo.pojos.MyOrder;
+
+
+import com.guo.pojos.myOrder;
 import com.guo.utils.MyDateUtils;
 import com.guo.utils.MybatisUtils;
-import javafx.scene.chart.PieChart;
 import org.apache.ibatis.session.SqlSession;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.*;
 public class OrderTest {
-    private List<MyOrder> OrderList;
-    private List<Commodity> commodityList;
     private MyOrderMapper orderMapper;
     private CommodityMapper commodityMapper;
     private SqlSession sqlSession;
 
+
+    //因为是测试类，每个Test独立，我就不在每一个Test重新创sqlSession了
+    //正常情况下只创建一个sqlSession多次访问数据库有点危险
     @Before
     public void BuildMapper() {
         sqlSession = MybatisUtils.getsqlsession();
         orderMapper = sqlSession.getMapper(MyOrderMapper.class);
-        OrderList = orderMapper.getOrderList();
         commodityMapper = sqlSession.getMapper(CommodityMapper.class);
-        commodityList = commodityMapper.getCommodityList();
     }
 
+    //测试曾加订单
     @Test
-    public void Demo() {
-        for (MyOrder o : OrderList) {
-            System.out.println(o.getOrderNumber());
-        }
-        for (Commodity c : commodityList) {
-            System.out.println(c.getCommodityName());
-        }
-        MyOrder myOrder = orderMapper.getOrderById(1);
-        System.out.println(myOrder.getOrderTime());
-        //     try {
-        //          orderMapper.addOrder(new MyOrder(11, 2, "20211215"));
-        //           sqlSession.commit();
-////////            orderMapper.updateOrder(new Order(3,1,"20211216"));
-////            sqlSession.commit();
-//            orderMapper.deleteOrderById(3);
-//            sqlSession.commit();
-
-        //      }catch (Exception e){
-        //          sqlSession.rollback();
-//            System.out.println(e);
-        Scanner sc = new Scanner(System.in);
-        List<MyOrder> list = orderMapper.selectLike(sc.next());
-        for (MyOrder order : list) {
-            System.out.println(order);
+    public void insertOrder() {
+        try {
+            orderMapper.addOrder(new myOrder(12, 12,
+                    MyDateUtils.getDate(new Date().getTime())));
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
         }
     }
+
+    //测试删除id为1的订单
+    @Test
+    public void deletOrder() {
+        try {
+            orderMapper.deleteOrderById(1);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+        }
+    }
+
+    //测试更新订单编号为 1 的订单 更新为当前时间，商品信息随意
+    @Test
+    public void updataOrder() {
+        Date date = new Date();
+        try {
+            orderMapper.updateOrder(new myOrder(1, 2,
+                    MyDateUtils.getDate(date.getTime())));
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+        }
+    }
+
     //测试查询所有的订单
     @Test
-    public void getOrderList(){
-
+    public void getOrderList() {
+        List<myOrder> list = orderMapper.getOrderList();
+        for (com.guo.pojos.myOrder myOrder : list) {
+            System.out.println(myOrder);
+        }
     }
+
 
     //测试通过订单ID查询订单信息 比如查询订单编号为 1 的订单
     @Test
@@ -67,37 +77,30 @@ public class OrderTest {
         System.out.println(orderMapper.getOrderById(1));
     }
 
-    //测试通过订单ID查询订单和商品的信息(多表查询) 比如查询订单编号为 1 的订单和对应商品
+    //测试分页查询
     @Test
-    public void selectAll() {
-        System.out.println();
+    public void selectByLimit() {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("startIndex", 0);
+        hashMap.put("pageSize", 2);
+        List<myOrder> list = orderMapper.selectLimit(hashMap);
+        for (com.guo.pojos.myOrder myOrder : list) {
+            System.out.println(myOrder);
+        }
     }
 
-    //测试更新订单编号为 1 的订单 更新为当前时间，商品信息随意
     @Test
-    public void updataOrder() {
-        Date date = new Date();
-          orderMapper.updateOrder(new MyOrder(2,2,
-                  MyDateUtils.getDate(date.getTime())));
+    public void selectAll(){
+
     }
-    @Test
-    public void add(){
-        System.out.println("hellow");
+
+
+    @After
+    public void closeSql() {
+        sqlSession.close();
     }
-    @Test
-    public void add2() {
-        System.out.println("nmb");
-    }
-    @Test
-    public void add3(){
-        System.out.println(3);
-    }
+
 
 }
 
-//    @After
-//    public void CloseSql(){
-//        sqlSession.close();
-//    }
-//}
 

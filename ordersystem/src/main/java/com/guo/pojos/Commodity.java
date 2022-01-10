@@ -4,40 +4,46 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("Commodity")
 public class Commodity {
-    private int commodityId;
-    private String commodityName;
-    private double commodityPrice;
+    private int commodity_id;
+    private String commodity_name;
+    private double commodity_price;
 
-    public int getCommodityId() {
-        return commodityId;
+    public Commodity(int commodity_id,String commodity_name,double commodity_price){
+        this.commodity_id = commodity_id;
+        this.commodity_name = commodity_name;
+        this.commodity_price = commodity_price;
     }
 
-    public void setCommodityId(int commodityId) {
-        this.commodityId = commodityId;
+    public int getCommodityId() {
+        return commodity_id;
+    }
+
+    public void setCommodityId(int commodity_id) {
+        this.commodity_id = commodity_id;
     }
 
     public String getCommodityName() {
-        return commodityName;
+        return commodity_name;
     }
 
-    public void setCommodityName(String commodityName) {
-        this.commodityName = commodityName;
+    public void setCommodityName(String commodity_name) {
+        this.commodity_name = commodity_name;
     }
 
     public double getCommodityPrice() {
-        return commodityPrice;
+        return commodity_price;
     }
 
-    public void setCommodityPrice(double commodityPrice) {
-        this.commodityPrice = commodityPrice;
+    public void setCommodityPrice(double commodity_price) {
+        this.commodity_price = commodity_price;
     }
 
     @Override
     public String toString() {
         return "Commodity{" +
-                "commodityId=" +  + commodityId +
-                ", commodityName='" + commodityName + '\'' +
-                ", commodityPrice=" + commodityPrice +
+                "commodity_id=" +  + commodity_id +
+                ", commodity_name='" + commodity_name + '\'' +
+                ", commodity_price=" + commodity_price +
                 '}';
     }
 }

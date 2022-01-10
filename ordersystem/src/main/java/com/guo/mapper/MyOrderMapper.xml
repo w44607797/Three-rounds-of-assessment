@@ -4,26 +4,53 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.guo.mapper.MyOrderMapper">
     <select id="getOrderList" resultType="MyOrder">
-        select * from mydatabase.myOrder
+        select * from ${orderTable}
     </select>
     <select id="getOrderById" parameterType="int" resultType="MyOrder">
-        select * from mydatabase.myOrder where OrderId = #{id}
+        select * from ${orderTable} where order_id = #{id}
     </select>
     <insert id="addOrder" parameterType="MyOrder">
-        insert into mydatabase.myOrder (orderId,commodityMessage,orderTime) values (#{orderId},#{commodityMessage},#{orderTime});
+        insert into ${orderTable}
+            (order_id,commodity_id,order_time)
+            values
+                   (#{order_id},#{commodity_id},#{order_time});
     </insert>
     <update id="updateOrder" parameterType="MyOrder">
-        update mydatabase.myOrder set orderId=#{orderId},commodityMessage=#{commodityMessage},orderTime=#{orderTime} where orderId=#{orderId};
+        update ${orderTable}
+        set
+            order_id=#{order_id},
+            commodity_id=#{commodity_id},
+            order_time=#{order_time}
+        where
+              order_id=#{order_id};
     </update>
     <delete id="deleteOrderById" parameterType="int">
-        delete from mydatabase.myOrder where OrderId=#{OrderId};
+        delete
+        from
+             ${orderTable}
+        where
+              order_id=#{order_id};
     </delete>
     <insert id="addOrderByMap" parameterType="map">
-        insert into mydatabase.myOrder (orderId,commodityMessage,orderTime) values (#{orderId},#{commodityMessage},#{orderTime});
+        insert
+        into
+            ${orderTable}
+            (order_id,commodity_id,order_time)
+            values
+                   (#{order_id},#{commodity_id},#{order_time});
     </insert>
     <select id="selectLike" resultType="MyOrder">
-        select * from mydatabase.myOrder where orderId like #{id}
+         select * from
+                       ${orderTable}
+         where order_id
+                   like #{id}
     </select>
+    <select id="selectLimit" parameterType="map" resultType="MyOrder">
+        select * from ${orderTable} limit #{startIndex},#{pageSize}
+    </select>
+
+
+
 </mapper>
 
 

@@ -4,8 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.guo.mapper.CommodityMapper">
     <select id="getCommodityList" resultType="Commodity">
-        select * from mydatabase.Commodity
+        select * from ${commodityTable}
     </select>
+    <update id="updateCommodity" parameterType="Commodity">
+        update ${commodityTable}
+        set commodity_id=#{commodity_id},commodity_name=#{commodity_name},commodity_price=#{commodity_price}
+        where commodity_id=#{commodity_id};
+    </update>
+    <insert id="insertCommodity" parameterType="Commodity">
+        insert into ${commodityTable}
+            (commodity_id,commodity_name,commodity_price)
+        values
+               (#{commodity_id},#{commodity_name},#{commodity_price});
+    </insert>
+    <delete id="deleteCommodity" parameterType="int">
+        delete from ${commodityTable} where commodity_id = #{commodity_id};
+    </delete>
 </mapper>
 
     
