@@ -11,10 +11,9 @@ CREATE TABLE `weather_forecast`.`city` (
 
 CREATE TABLE `weather_forecast`.`city_weather` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `cityId` INT NOT NULL,
-  `fxDate` VARCHAR(12) NOT NULL,
-  `tempMax` INT NOT NULL,
-  `tempMin` INT NOT NULL,
-  `textDay` VARCHAR(20) NOT NULL,
+  `city_Id` INT NOT NULL,
+  `fx_date` VARCHAR(12) NOT NULL,
+  `temp_max` INT NOT NULL,
+  `temp_min` INT NOT NULL,
+  `text_day` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`));
-  
