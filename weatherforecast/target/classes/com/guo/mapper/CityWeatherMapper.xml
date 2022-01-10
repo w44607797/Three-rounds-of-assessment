@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guo.mapper.CityWeatherMapper">
+    <insert id="insertWeather" parameterType="CityWeather">
+        insert into ${cityweatherTable}
+            (city_Id,fx_Date,temp_Max,temp_Min,text_Day)
+            values (#{cityId},#{fxDate},#{tempMax},#{tempMin},#{textDay});
+    </insert>
+
+
+
+
+</mapper>
+
+    
