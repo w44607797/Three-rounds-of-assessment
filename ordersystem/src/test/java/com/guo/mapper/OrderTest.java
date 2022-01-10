@@ -89,10 +89,6 @@ public class OrderTest {
         }
     }
 
-    @Test
-    public void selectAll(){
-
-    }
 
 
     @After
